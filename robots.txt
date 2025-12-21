@@ -1,6 +1,6 @@
 User-agent: *
 Allow: /
-Sitemap: https://yourwebsite.com/sitemap.xml
+Sitemap: https://uiqyarab.netlify.app/sitemap.xml
 
 Disallow: /admin/
 Disallow: /api/
