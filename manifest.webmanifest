@@ -1,0 +1,25 @@
+{
+  "short_name": "uiqyarab",
+  "name": "uiqyarab - الحلول التقنية",
+  "icons": [
+    {
+      "src": "/playstore.png", 
+      "sizes": "512x512",
+      "type": "image/png"
+    },
+    {
+      "src": "/appstore.png",
+      "sizes": "1024x1024",
+      "type": "image/png"
+    },
+    {
+      "src": "/favicon.ico",
+      "sizes": "32x32",
+      "type": "image/x-icon"
+    }
+  ],
+  "start_url": "/",
+  "display": "standalone",
+  "theme_color": "#DD0031",
+  "background_color": "#ffffff"
+}
