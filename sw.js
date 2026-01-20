@@ -1,27 +1,21 @@
-// اسم النسخة - غير الرقم ده كل ما تحدث موقعك عشان الموبايل يحس بالتغيير
-const cacheName = 'uiqyarab-v1';
+importScripts('https://storage.googleapis.com/workbox-cdn/releases/6.4.1/workbox-sw.js');
 
-// الملفات اللي عايز تخزنها عشان تشتغل من غير نت
-const assetsToCache = [
-  '/',
-  '/index.html',
-  '/manifest.webmanifest',
-  '/favicon.ico',
-  '/playstore.png'
-];
-
-// 1. مرحلة التثبيت: تخزين الملفات في ذاكرة الموبايل
-self.addEventListener('install', (e) => {
-  e.waitUntil(
-    caches.open(cacheName).then((cache) => cache.addAll(assetsToCache))
+if (workbox) {
+  // 1. تخزين ملفات الـ CSS والـ JS حتى لو من CDN (زي FontAwesome)
+  workbox.routing.registerRoute(
+    ({request}) => request.destination === 'script' || request.destination === 'style',
+    new workbox.strategies.StaleWhileRevalidate()
   );
-});
 
-// 2. مرحلة التشغيل: لو مفيش نت، اسحب من الذاكرة (Cache)
-self.addEventListener('fetch', (e) => {
-  e.respondWith(
-    caches.match(e.request).then((response) => {
-      return response || fetch(e.request);
-    })
+  // 2. تخزين الصور
+  workbox.routing.registerRoute(
+    ({request}) => request.destination === 'image',
+    new workbox.strategies.CacheFirst()
   );
-});
+
+  // 3. أهم حتة: تخزين أي صفحة يفتحها المستخدم عشان تشتغل أوفلاين
+  workbox.routing.registerRoute(
+    ({request}) => request.mode === 'navigate',
+    new workbox.strategies.NetworkFirst()
+  );
+}
